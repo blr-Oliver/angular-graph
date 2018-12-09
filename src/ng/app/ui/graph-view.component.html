@@ -1,2 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" [attr.viewBox]="[0, 0, 500, 300]">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" [attr.viewBox]="[0, 0, width, height].join(' ')">
+  <g id="axis">
+    <line x1="10" x2="10" [attr.y1]="height - 10" y2="10"/>
+    <line x1="10" [attr.x2]="width - 10" [attr.y1]="height - 10" [attr.y2]="height - 10"/>
+  </g>
+  <g id="series">
+    <g *ngFor="let line of series; let i=index" [id]="'series-' + i">
+      <ng-container *ngFor="let point of line; let j = index">
+        <line *ngIf="j > 0" [attr.x1]="(j - 1) * 100 + 10" [attr.x2]="j * 100 + 10"
+              [attr.y1]="height - 10 - line[j-1]*yUnit"
+              [attr.y2]="height - 10 - point*yUnit"/>
+      </ng-container>
+    </g>
+  </g>
 </svg>

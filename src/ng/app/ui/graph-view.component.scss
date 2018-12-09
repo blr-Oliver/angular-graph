@@ -1,4 +1,12 @@
 svg {
-  background-color: #ccc;
   stroke: black;
+  stroke-width: 4;
+  stroke-linejoin: miter;
+  stroke-linecap: round;
+  #series-0 {
+    stroke: red;
+  }
+  #series-1 {
+    stroke: blue;
+  }
 }
