@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.oliver.webexample.model.DataRecord;
 
 @Service
 public class DataService {
-
-  private String pathToFile = "F:/ecl/workspace/simple-web-example/etc/Test-Data.csv";
+  @Value("${csv.path}")
+  private String pathToFile;
 
   public List<DataRecord> getData() throws IOException {
     return loadAndParseData();
