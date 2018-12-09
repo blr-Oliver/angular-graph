@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-striped">
   <thead>
   <tr>
     <th>Words</th>
@@ -9,8 +9,8 @@
   <tbody>
   <tr *ngFor="let record of data">
     <td>{{record.words}}</td>
-    <td>{{record.score | number: 0}}</td>
-    <td>{{record.avgScore | number : 1}}</td>
+    <td>{{record.score | number}}</td>
+    <td>{{record.avgScore | number : '1.1-1'}}</td>
   </tr>
   </tbody>
 </table>
