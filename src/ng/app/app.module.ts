@@ -5,11 +5,13 @@ import {AppComponent} from './ui/app.component';
 import {TabularViewComponent} from './ui/tabular-view.component';
 import {HttpClientModule} from '@angular/common/http';
 import {DataService} from './service/DataService';
+import {GraphViewComponent} from './ui/graph-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TabularViewComponent
+    TabularViewComponent,
+    GraphViewComponent
   ],
   imports: [
     BrowserModule,

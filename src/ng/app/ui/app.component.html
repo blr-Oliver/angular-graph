@@ -1,7 +1,17 @@
 <div>
   <div class="container">
+    <h1 class="py-2 border-bottom">
+      Simple Web application example
+    </h1>
     <ng-container *ngIf="data$ | async as data">
-      <tabular-view [data]="data"></tabular-view>
+      <div class="row pt-4">
+        <div class="col-12 col-lg-6">
+          <tabular-view [data]="data"></tabular-view>
+        </div>
+        <div class="col-12 col-lg-6">
+          <graph-view [data]="data"></graph-view>
+        </div>
+      </div>
     </ng-container>
   </div>
 </div>
