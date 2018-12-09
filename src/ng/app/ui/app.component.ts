@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {DataService} from '../service/DataService';
 import {Observable} from 'rxjs';
 import {DataRecord} from '../model/DataRecord';
-import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -20,5 +19,4 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.data$ = this.dataService.getData();
   }
-
 }

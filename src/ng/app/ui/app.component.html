@@ -1,6 +1,6 @@
 <div>
   <div class="container">
-    <ng-container *ngIf="$data | async as data">
+    <ng-container *ngIf="data$ | async as data">
       <tabular-view [data]="data"></tabular-view>
     </ng-container>
   </div>
