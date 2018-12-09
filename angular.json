@@ -26,6 +26,7 @@
               "src/ng/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/ng/styles.css"
             ],
             "scripts": []
