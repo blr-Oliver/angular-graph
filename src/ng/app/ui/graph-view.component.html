@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" [attr.viewBox]="[originX, originY, width, height].join(' ')">
   <g id="axis">
     <line x1="0" x2="0" [attr.y1]="yMin * yUnit" [attr.y2]="yMax * yUnit"/>
-    <line [attr.x1]="xMin * xUnit" [attr.x2]="xMax * xUnit" y1="0" y2="0"/>
+    <line [attr.x1]="xMin * xUnit" [attr.x2]="xMax * xUnit" [attr.y1]="originY * 2 + height" [attr.y2]="originY * 2 + height"/>
   </g>
   <g id="series">
     <g *ngFor="let line of series; let i=index" [id]="'series-' + i">
@@ -9,8 +9,8 @@
         <line *ngIf="j > 0"
               [attr.x1]="line[j - 1].x * xUnit"
               [attr.x2]="line[j].x * xUnit"
-              [attr.y1]="(yMax - line[j - 1].y) * yUnit"
-              [attr.y2]="(yMax - line[j].y) * yUnit"/>
+              [attr.y1]="originY * 2 + height - line[j - 1].y * yUnit"
+              [attr.y2]="originY * 2 + height - line[j].y * yUnit"/>
       </ng-container>
     </g>
   </g>
