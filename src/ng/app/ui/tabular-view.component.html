@@ -1,16 +1,16 @@
 <table class="table table-striped table-bordered">
   <thead>
   <tr>
-    <th>Words</th>
-    <th>Your Score</th>
-    <th>Avg Score</th>
+    <th>#</th>
+    <th>X</th>
+    <th>Y</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let record of data">
-    <td>{{record.words}}</td>
-    <td>{{record.score | number}}</td>
-    <td>{{record.avgScore | number : '1.1-1'}}</td>
+  <tr *ngFor="let record of data; let i = index">
+    <td>{{i + 1}}</td>
+    <td>{{record.x | number : '1.1-2'}}</td>
+    <td>{{record.y | number : '1.1-2'}}</td>
   </tr>
   </tbody>
 </table>

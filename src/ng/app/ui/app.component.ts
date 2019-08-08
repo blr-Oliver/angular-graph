@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {Point} from '../model/Point';
 import {DataService} from '../service/DataService';
 import {Observable} from 'rxjs';
-import {DataRecord} from '../model/DataRecord';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import {DataRecord} from '../model/DataRecord';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  data$: Observable<DataRecord[]>;
+  data$: Observable<Point[]>;
 
   constructor(
     private dataService: DataService

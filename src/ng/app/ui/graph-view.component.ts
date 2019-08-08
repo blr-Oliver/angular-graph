@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DataRecord} from '../model/DataRecord';
+import {Point} from '../model/Point';
 
 type RoundDirection = 'floor' | 'ceil' | 'round';
 
@@ -10,8 +10,8 @@ type RoundDirection = 'floor' | 'ceil' | 'round';
 })
 export class GraphViewComponent implements OnInit {
   private static readonly RATIO = 1.6;
-  @Input() data: DataRecord[];
-  categories: string[];
+  @Input() data: Point[];
+  categories: number[];
   series: number[][];
   yMax: number;
   yUnit: number;
@@ -19,13 +19,12 @@ export class GraphViewComponent implements OnInit {
   height: number;
 
   ngOnInit(): void {
-    this.series = [[], []];
-    this.categories = this.data.map(r => r.words);
+    this.series = [[]];
+    this.categories = this.data.map(r => r.x);
     this.data.forEach((r, i) => {
-      this.series[0][i] = r.score;
-      this.series[1][i] = r.avgScore;
+      this.series[0][i] = r.y;
     });
-    const maxValue = Math.max(...this.series[0], ...this.series[1]);
+    const maxValue = Math.max(...this.series[0]);
     this.width = this.categories.length * 100 + 20;
     this.height = this.width / GraphViewComponent.RATIO;
     this.yMax = this.roundSpecial(maxValue * 1.1, 1, 'ceil');
@@ -35,7 +34,7 @@ export class GraphViewComponent implements OnInit {
 
   private roundSpecial(value: number, significantDigits: number, direction: RoundDirection = 'round'): number {
     const scale = Math.floor(Math.log10(Math.abs(value))) + (1 - significantDigits);
-    const multipler = Math.pow(10, scale);
-    return Math[direction](value / multipler) * multipler;
+    const multiplier = Math.pow(10, scale);
+    return Math[direction](value / multiplier) * multiplier;
   }
 }

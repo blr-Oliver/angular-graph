@@ -1,17 +1,22 @@
 [
   {
-    "words": "aaa",
-    "score": 5,
-    "avgScore": 5.1
+    "x": 1,
+    "y": 6
   },
   {
-    "words": "bbb",
-    "score": 4,
-    "avgScore": 3.9
+    "x": 2,
+    "y": 8
   },
   {
-    "words": "ccc",
-    "score": 6,
-    "avgScore": 6.2
+    "x": 3,
+    "y": 9
+  },
+  {
+    "x": 4,
+    "y": 7
+  },
+  {
+    "x": 5,
+    "y": 5
   }
 ]

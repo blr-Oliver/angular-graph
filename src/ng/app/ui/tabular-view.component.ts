@@ -1,10 +1,10 @@
 import {Component, Input} from '@angular/core';
-import {DataRecord} from '../model/DataRecord';
+import {Point} from '../model/Point';
 
 @Component({
   selector: 'tabular-view',
   templateUrl: './tabular-view.component.html'
 })
 export class TabularViewComponent {
-  @Input() data: DataRecord[];
+  @Input() data: Point[];
 }
