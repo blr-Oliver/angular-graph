@@ -1,0 +1,17 @@
+[
+  {
+    "words": "aaa",
+    "score": 5,
+    "avgScore": 5.1
+  },
+  {
+    "words": "bbb",
+    "score": 4,
+    "avgScore": 3.9
+  },
+  {
+    "words": "ccc",
+    "score": 6,
+    "avgScore": 6.2
+  }
+]

@@ -9,6 +9,6 @@ export class DataService {
   }
 
   getData(): Observable<DataRecord[]> {
-    return this.http.get<DataRecord[]>('/api/data');
+    return this.http.get<DataRecord[]>('/api/data/sample.json');
   }
 }

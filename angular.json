@@ -3,11 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "simple-web-example": {
+    "angular-graph": {
       "root": "",
       "sourceRoot": "src/ng",
       "projectType": "application",
-      "prefix": "web-ex",
+      "prefix": "ex",
       "schematics": {
         "@schematics/angular:component": {
           "styleext": "scss"
@@ -17,13 +17,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "src/main/resources/static",
+            "outputPath": "docs",
             "index": "src/ng/index.html",
             "main": "src/ng/main.ts",
             "polyfills": "src/ng/polyfills.ts",
             "tsConfig": "tsconfig.json",
             "assets": [
-              "src/ng/assets"
+              "src/ng/assets",
+              "src/ng/data"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -54,11 +55,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "simple-web-example:build"
+            "browserTarget": "angular-graph:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "simple-web-example:build:production"
+              "browserTarget": "angular-graph:build:production"
             }
           }
         },
@@ -74,5 +75,5 @@
       }
     }
   },
-  "defaultProject": "simple-web-example"
+  "defaultProject": "angular-graph"
 }
