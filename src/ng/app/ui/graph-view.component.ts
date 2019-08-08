@@ -11,28 +11,46 @@ type RoundDirection = 'floor' | 'ceil' | 'round';
 export class GraphViewComponent implements OnInit {
   private static readonly RATIO = 1.6;
   @Input() data: Point[];
-  categories: number[];
-  series: number[][];
+  series: Point[][];
+  xMin: number;
+  xMax: number;
+  yMin: number;
   yMax: number;
+  xUnit: number;
   yUnit: number;
   width: number;
   height: number;
+  originX: number;
+  originY: number;
 
   ngOnInit(): void {
-    this.series = [[]];
-    this.categories = this.data.map(r => r.x);
-    this.data.forEach((r, i) => {
-      this.series[0][i] = r.y;
-    });
-    const maxValue = Math.max(...this.series[0]);
-    this.width = this.categories.length * 100 + 20;
-    this.height = this.width / GraphViewComponent.RATIO;
-    this.yMax = this.roundSpecial(maxValue * 1.1, 1, 'ceil');
-    this.yUnit = this.roundSpecial((this.height - 20) / this.yMax, 2);
-    this.height = Math.ceil(this.yUnit * this.yMax) + 20;
+    this.series = [this.data];
+    const len = this.data.length;
+    const xValues = this.data.map(p => p.x);
+    const yValues = this.data.map(p => p.y);
+    this.xMin = Math.min(...xValues);
+    this.xMax = Math.max(...xValues);
+    this.yMin = Math.min(...yValues);
+    this.yMax = Math.max(...yValues);
+    this.xMin = this.roundSpecial(Math.min(0, this.xMin * 1.1), 1, 'floor');
+    this.xMax = this.roundSpecial(Math.max(0, this.xMax * 1.1), 1, 'ceil');
+    this.yMin = this.roundSpecial(Math.min(0, this.yMin * 1.1), 1, 'floor');
+    this.yMax = this.roundSpecial(Math.max(0, this.yMax * 1.1), 1, 'ceil');
+    const xSpan = this.xMax - this.xMin;
+    const ySpan = this.yMax - this.yMin;
+    this.xUnit = this.roundSpecial(xSpan / len * 100, 2);
+    this.width = this.roundSpecial(this.xUnit * xSpan, 3, 'ceil');
+    const height = this.roundSpecial(this.width / GraphViewComponent.RATIO, 3);
+    this.yUnit = this.roundSpecial(height / ySpan, 2);
+    this.height = this.roundSpecial(this.yUnit * ySpan, 3, 'ceil');
+    this.originX = this.xUnit * this.xMin;
+    this.originY = this.yUnit * this.yMin;
   }
 
   private roundSpecial(value: number, significantDigits: number, direction: RoundDirection = 'round'): number {
+    if (value === 0) {
+      return 0;
+    }
     const scale = Math.floor(Math.log10(Math.abs(value))) + (1 - significantDigits);
     const multiplier = Math.pow(10, scale);
     return Math[direction](value / multiplier) * multiplier;
