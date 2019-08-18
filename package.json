@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build",
+    "build": "ng build --prod --base-href \"https://blr-Oliver.github.io/angular-graph/\"",
     "lint": "ng lint"
   },
   "dependencies": {
