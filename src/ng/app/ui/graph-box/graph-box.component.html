@@ -1,14 +1,22 @@
-{{params | json}}
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" [attr.viewBox]="[0, 0, params.width, params.height].join(' ')" class="svg-graph">
+  <defs>
+    <marker id="arrow" viewBox="0 0 6 4"
+            refX="0" refY="2"
+            markerUnits="strokeWidth"
+            markerWidth="6" markerHeight="6"
+            orient="auto">
+      <path d="M0 0L6 2 0 4z"></path>
+    </marker>
+  </defs>
   <g class="axis">
     <g class="x-axis">
-      <line class="thick"
+      <line class="axis thick"
             [attr.x1]="xPoint(params.plot.left * params.unit.x)"
             [attr.x2]="xPoint(params.plot.right * params.unit.x)"
             [attr.y1]="yPoint(0)"
             [attr.y2]="yPoint(0)"></line>
       <ng-container *ngFor="let tick of xAxis">
-        <line [class.thick]="tick.thickness > 0" [class.thin]="tick.thickness < 0"
+        <line class="tick" [class.thick]="tick.thickness > 0" [class.thin]="tick.thickness < 0"
               [attr.x1]="xPoint(tick.value)"
               [attr.x2]="xPoint(tick.value)"
               [attr.y1]="yPoint(-0.1 * params.unit.y)"
@@ -16,18 +24,29 @@
       </ng-container>
     </g>
     <g class="y-axis">
-      <line class="thick"
+      <line class="axis thick"
             [attr.x1]="xPoint(0)"
             [attr.x2]="xPoint(0)"
             [attr.y1]="yPoint(params.plot.bottom * params.unit.y)"
             [attr.y2]="yPoint(params.plot.top * params.unit.y)"></line>
       <ng-container *ngFor="let tick of yAxis">
-        <line [class.thick]="tick.thickness > 0" [class.thin]="tick.thickness < 0"
+        <line class="tick" [class.thick]="tick.thickness > 0" [class.thin]="tick.thickness < 0"
               [attr.x1]="xPoint(-0.1 * params.unit.x)"
               [attr.x2]="xPoint(0.1 * params.unit.x)"
               [attr.y1]="yPoint(tick.value)"
               [attr.y2]="yPoint(tick.value)"></line>
       </ng-container>
+    </g>
+  </g>
+  <g class="series">
+    <g class="series-0">
+      <path class="line" [attr.d]="path"></path>
+      <circle class="point" *ngFor="let p of points"
+              [attr.cx]="xPoint(p.x)"
+              [attr.cy]="yPoint(p.y)"
+              r="7">
+        <title>{{displayPoint(p)}}</title>
+      </circle>
     </g>
   </g>
 </svg>

@@ -6,11 +6,50 @@
   stroke-linejoin: miter;
   stroke: black;
 
+  marker#arrow {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  line.axis {
+    marker-end: url(#arrow);
+  }
+
   .thick {
     stroke-width: 11;
   }
 
   .thin {
     stroke-width: 3;
+  }
+
+  .series {
+    stroke: currentColor;
+    fill: currentColor;
+
+    .line {
+      fill: none;
+    }
+
+    .point {
+      r: 7;
+      transition: r 0.2s ease-in;
+
+      &:hover {
+        r: 13;
+      }
+    }
+  }
+
+  .series-0 {
+    color: red;
+  }
+
+  .series-1 {
+    color: blue;
+  }
+
+  .series-2 {
+    color: lime;
   }
 }

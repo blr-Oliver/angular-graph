@@ -1,4 +1,5 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {Point} from '../../model/Point';
 
 interface Rectangle {
   left: number;
@@ -15,11 +16,6 @@ interface Tick {
   thickness?: number;
 }
 
-interface Point {
-  x: number;
-  y: number;
-}
-
 interface GraphParams {
   width: number;
   height: number;
@@ -33,13 +29,11 @@ interface GraphParams {
 @Component({
   selector: 'graph-box',
   templateUrl: './graph-box.component.html',
-  styleUrls: ['./graph-box.component.scss']
+  styleUrls: ['./graph-box.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class GraphBoxComponent implements OnInit, OnChanges {
-  @Input() minX: number;
-  @Input() maxX: number;
-  @Input() minY: number;
-  @Input() maxY: number;
+  @Input('data') points: Point[];
 
   params: GraphParams = {
     width: 1000,
@@ -53,6 +47,7 @@ export class GraphBoxComponent implements OnInit, OnChanges {
 
   xAxis: Tick[] = [];
   yAxis: Tick[] = [];
+  path: string = null;
 
   private static computeUnit(x: number): number {
     const tenthPower = Math.pow(10, Math.ceil(Math.log10(x)) - 2);
@@ -87,17 +82,22 @@ export class GraphBoxComponent implements OnInit, OnChanges {
     this.updateParams();
     GraphBoxComponent.updateAxis(this.xAxis, this.params.plot.left, this.params.plot.right, this.params.unit.x);
     GraphBoxComponent.updateAxis(this.yAxis, this.params.plot.bottom, this.params.plot.top, this.params.unit.y);
+    this.updateSeries();
   }
 
   private updateParams(): void {
     const p = this.params;
-    const ux = p.unit.x = Math.max(...[this.minX, this.maxX].map(Math.abs).map(GraphBoxComponent.computeUnit));
-    const uy = p.unit.y = Math.max(...[this.minY, this.maxY].map(Math.abs).map(GraphBoxComponent.computeUnit));
+    const xValues: number[] = this.points.map(p => p.x);
+    const yValues: number[] = this.points.map(p => p.y);
+    const minX = Math.min(...xValues), maxX = Math.max(...xValues);
+    const minY = Math.min(...yValues), maxY = Math.max(...yValues);
+    const ux = p.unit.x = Math.max(...[minX, maxX].map(Math.abs).map(GraphBoxComponent.computeUnit));
+    const uy = p.unit.y = Math.max(...[minY, maxY].map(Math.abs).map(GraphBoxComponent.computeUnit));
     const plotRect = p.plot = {
-      left: Math.floor(Math.min(0, this.minX / ux)) - 1,
-      right: Math.ceil(Math.max(1, this.maxX / ux)) + 1,
-      bottom: Math.floor(Math.min(0, this.minY / uy)) - 1,
-      top: Math.ceil(Math.max(1, this.maxY / uy)) + 1
+      left: Math.floor(Math.min(0, minX / ux)) - 1,
+      right: Math.ceil(Math.max(1, maxX / ux)) + 1,
+      bottom: Math.floor(Math.min(0, minY / uy)) - 1,
+      top: Math.ceil(Math.max(1, maxY / uy)) + 1
     };
     const canvasRect: Rectangle = p.canvas = {
       left: plotRect.left - 0.5,
@@ -116,10 +116,18 @@ export class GraphBoxComponent implements OnInit, OnChanges {
     p.origin.y = scale * canvasRect.top;
   }
 
+  private updateSeries() {
+    const pairs: string[] = this.points.map(p => [this.xPoint(p.x), this.yPoint(p.y)].join(' '));
+    this.path = `M${pairs[0]}L${pairs.slice(1).join(' ')}`;
+  }
+
   xPoint(x: number): number {
     return this.params.origin.x + x * this.params.scale.x;
   }
   yPoint(y: number): number {
     return this.params.origin.y - y * this.params.scale.y;
+  }
+  displayPoint(p: Point): string {
+    return `(${p.x}; ${p.y})`;
   }
 }

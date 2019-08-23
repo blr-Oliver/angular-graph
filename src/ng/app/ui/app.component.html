@@ -3,37 +3,15 @@
     <h1 class="py-2 border-bottom">
       Angular graph
     </h1>
-    <!--
-      <ng-container *ngIf="data$ | async as data">
-        <div class="row pt-4">
-          <div class="col-12 col-lg-6">
-            <tabular-view [data]="data"></tabular-view>
-          </div>
-          <div class="col-12 col-lg-6">
-            <graph-view [data]="data"></graph-view>
-          </div>
+    <ng-container *ngIf="data$ | async as data">
+      <div class="row pt-4">
+        <div class="col-12 col-lg-6">
+          <tabular-view [data]="data"></tabular-view>
         </div>
-      </ng-container>
-    -->
-    <div>
-      <label>
-        Min X
-        <input type="number" min="-2000" step="100" max="2000" [(ngModel)]="minX"/>
-      </label>
-      <label>
-        Max X
-        <input type="number" min="-2000" step="100" max="2000" [(ngModel)]="maxX"/>
-      </label>
-      <label>
-        Min Y
-        <input type="number" min="-2000" step="100" max="2000" [(ngModel)]="minY"/>
-      </label>
-      <label>
-        Max Y
-        <input type="number" min="-2000" step="100" max="2000" [(ngModel)]="maxY"/>
-      </label>
-      <br/>
-      <graph-box [minX]="minX" [minY]="minY" [maxX]="maxX" [maxY]="maxY"></graph-box>
-    </div>
+        <div class="col-12 col-lg-6">
+          <graph-box [data]="data"></graph-box>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>
