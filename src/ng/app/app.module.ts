@@ -1,4 +1,5 @@
 import {APP_BASE_HREF, PlatformLocation} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
@@ -7,13 +8,13 @@ import {TabularViewComponent} from './ui/tabular-view.component';
 import {HttpClientModule} from '@angular/common/http';
 import {DataService} from './service/DataService';
 import {GraphViewComponent} from './ui/graph-view.component';
+import {GraphBoxComponent} from './ui/graph-box/graph-box.component';
 
 // from https://stackoverflow.com/questions/39287444/angular2-how-to-get-app-base-href-programmatically#answer-46493276
 export function getBaseHref(platformLocation: PlatformLocation): string {
   const current = platformLocation.getBaseHrefFromDOM();
-  if (!current || current === '/') {
+  if (!current || current === '/')
     return '';
-  }
   return current;
 }
 
@@ -21,11 +22,13 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
   declarations: [
     AppComponent,
     TabularViewComponent,
-    GraphViewComponent
+    GraphViewComponent,
+    GraphBoxComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     DataService,

@@ -1,0 +1,33 @@
+{{params | json}}
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" [attr.viewBox]="[0, 0, params.width, params.height].join(' ')" class="svg-graph">
+  <g class="axis">
+    <g class="x-axis">
+      <line class="thick"
+            [attr.x1]="xPoint(params.plot.left * params.unit.x)"
+            [attr.x2]="xPoint(params.plot.right * params.unit.x)"
+            [attr.y1]="yPoint(0)"
+            [attr.y2]="yPoint(0)"></line>
+      <ng-container *ngFor="let tick of xAxis">
+        <line [class.thick]="tick.thickness > 0" [class.thin]="tick.thickness < 0"
+              [attr.x1]="xPoint(tick.value)"
+              [attr.x2]="xPoint(tick.value)"
+              [attr.y1]="yPoint(-0.1 * params.unit.y)"
+              [attr.y2]="yPoint(0.1 * params.unit.y)"></line>
+      </ng-container>
+    </g>
+    <g class="y-axis">
+      <line class="thick"
+            [attr.x1]="xPoint(0)"
+            [attr.x2]="xPoint(0)"
+            [attr.y1]="yPoint(params.plot.bottom * params.unit.y)"
+            [attr.y2]="yPoint(params.plot.top * params.unit.y)"></line>
+      <ng-container *ngFor="let tick of yAxis">
+        <line [class.thick]="tick.thickness > 0" [class.thin]="tick.thickness < 0"
+              [attr.x1]="xPoint(-0.1 * params.unit.x)"
+              [attr.x2]="xPoint(0.1 * params.unit.x)"
+              [attr.y1]="yPoint(tick.value)"
+              [attr.y2]="yPoint(tick.value)"></line>
+      </ng-container>
+    </g>
+  </g>
+</svg>

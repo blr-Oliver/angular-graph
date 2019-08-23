@@ -1,0 +1,16 @@
+.svg-graph {
+  max-height: 500px;
+
+  stroke-width: 7;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  stroke: black;
+
+  .thick {
+    stroke-width: 11;
+  }
+
+  .thin {
+    stroke-width: 3;
+  }
+}

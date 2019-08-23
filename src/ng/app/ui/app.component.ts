@@ -11,6 +11,11 @@ import {Observable} from 'rxjs';
 export class AppComponent implements OnInit {
   data$: Observable<Point[]>;
 
+  minX: number;
+  maxX: number;
+  minY: number;
+  maxY: number;
+
   constructor(
     private dataService: DataService
   ) {
@@ -18,5 +23,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.data$ = this.dataService.getData();
+    this.minX = this.minY = 0;
+    this.maxX = this.maxY = 1000;
   }
 }
