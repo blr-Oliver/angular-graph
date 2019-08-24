@@ -21,6 +21,7 @@
               [attr.x2]="xPoint(tick.value)"
               [attr.y1]="yPoint(-0.1 * params.unit.y)"
               [attr.y2]="yPoint(0.1 * params.unit.y)"></line>
+        <text *ngIf="tick.showLabel" class="tick-label" [attr.x]="xPoint(tick.value)" [attr.y]="yPoint(-0.2 * params.unit.y)">{{tick.value}}</text>
       </ng-container>
     </g>
     <g class="y-axis">
@@ -35,6 +36,7 @@
               [attr.x2]="xPoint(0.1 * params.unit.x)"
               [attr.y1]="yPoint(tick.value)"
               [attr.y2]="yPoint(tick.value)"></line>
+        <text *ngIf="tick.showLabel" class="tick-label" [attr.x]="xPoint(0.2 * params.unit.x)" [attr.y]="yPoint(tick.value)">{{tick.value}}</text>
       </ng-container>
     </g>
   </g>

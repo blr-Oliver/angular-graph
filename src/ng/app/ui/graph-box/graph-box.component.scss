@@ -6,6 +6,14 @@
   stroke-linejoin: miter;
   stroke: black;
 
+  .thick {
+    stroke-width: 11;
+  }
+
+  .thin {
+    stroke-width: 3;
+  }
+
   marker#arrow {
     fill: currentColor;
     stroke: none;
@@ -15,12 +23,19 @@
     marker-end: url(#arrow);
   }
 
-  .thick {
-    stroke-width: 11;
+  .tick-label {
+    font-size: 50px;
+    stroke-width: 2;
   }
 
-  .thin {
-    stroke-width: 3;
+  .x-axis .tick-label {
+    dominant-baseline: text-before-edge;
+    text-anchor: middle;
+  }
+
+  .y-axis .tick-label {
+    dominant-baseline: central;
+    text-anchor: start;
   }
 
   .series {
